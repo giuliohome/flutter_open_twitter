@@ -2,6 +2,7 @@
   import 'dart:io';
   import 'package:oauth1/oauth1.dart' as oauth1;
   import 'package:flutter/services.dart';
+  import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(MyApp());
 
@@ -77,12 +78,16 @@ class _MyHomePageState extends State<MyHomePage> {
     auth = new oauth1.Authorization(clientCredentials, platform);
 
     // request temporary credentials (request tokens)
-    auth.requestTemporaryCredentials('oob').then((res) {
+    auth.requestTemporaryCredentials('oob').then((res) async {
       // redirect to authorization page
       _res = res;
       print("Open with your browser: ${auth.getResourceOwnerAuthorizationURI(res.credentials.token)}");
+      String url = auth.getResourceOwnerAuthorizationURI(res.credentials.token);
+      if (await canLaunch(url)) {
+      await launch(url);
+      }
       setState(() {
-        _message = "${auth.getResourceOwnerAuthorizationURI(res.credentials.token)}";
+        _message = "Copy and paste the PIN"; //${auth.getResourceOwnerAuthorizationURI(res.credentials.token)}
       });
     });
 
