@@ -2,6 +2,8 @@
 
 MyOpenTweet on Flutter.
 
+![MyOpenTweet on Flutter Demo](demo/flutter_twitter.gif)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
